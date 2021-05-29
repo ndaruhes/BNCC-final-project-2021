@@ -17,4 +17,6 @@ php artisan migrate:fresh or import the SQL
 
 php artisan serve
 
+php artisan storage:link
+
 npm run watch
