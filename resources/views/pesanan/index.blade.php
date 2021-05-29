@@ -4,11 +4,16 @@
 @section('content')
 <div class="d-flex justify-content-center mt-5">
     <div class="col-md-8">
+        @if(session('status'))
+            <div class="alert alert-success"><i class="uil uil-check me-1"></i>{{session('status')}}</div>
+        @endif
+
         @if(Auth::user()->role == 'Admin')
+            <h1 class="fs-3 mb-5"><i class="uil uil-history me-1"></i> KELOLA PESANAN</h1>
             @if($pesananPending->count() == null)
-            <div class="alert alert-warning" role="alert">
-                Belum ada pesanan
-            </div>
+                <div class="alert alert-warning" role="alert">
+                    Belum ada pesanan
+                </div>
             @else
                 <table class="table">
                     <thead>
@@ -56,10 +61,11 @@
                 </table>
             @endif
         @elseif(Auth::user()->role == 'Member')
+            <h1 class="fs-3 mb-5"><i class="uil uil-history me-1"></i> PESANAN KAMU</h1>
             @if($pesanan->count() == null)
-            <div class="alert alert-warning" role="alert">
-                Belum ada pesanan
-            </div>
+                <div class="alert alert-warning" role="alert">
+                    Belum ada pesanan
+                </div>
             @else
                 <table class="table">
                     <thead>

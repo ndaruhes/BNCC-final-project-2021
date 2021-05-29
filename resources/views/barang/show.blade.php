@@ -4,11 +4,21 @@
 @section('content')
 <div class="col-md-12 d-flex justify-content-center mt-3">
     <div class="col-md-5">
+        @if(session('errorStatus'))
+            <div class="alert alert-danger"><i class="uil uil-times me-2"></i>{{session('errorStatus')}}</div>
+        @endif
         <img src="{{ asset('storage/images/barang/'.$barang->foto_barang) }}" alt="{{ $barang->nama_barang }}" class="w-100 mb-4">
         <span class="badge bg-primary mb-2">{{ $barang->kategori->nama_kategori }}</span>
         <h1 class="fs-2">{{ $barang->nama_barang }}</h1>
         <h1 class="fs-5 text-secondary">Rp. {{ number_format($barang->harga_barang) }}</h1>
-        <h1 class="fs-5 mt-4">Sisa Stok: {{ $barang->jumlah_barang }}</h1>
+        <h1 class="fs-5 mt-4">
+            Sisa Stok:
+            @if($barang->jumlah_barang === '0' || $barang->jumlah_barang == null)
+                <span class="text-danger">Habis</span>
+            @else
+                {{ $barang->jumlah_barang }}
+            @endif
+        </h1>
 
         @guest
             <a href="{{ route('login') }}" class="btn btn-success btn-sm text-white fs-5">Pesan Sekarang</a>

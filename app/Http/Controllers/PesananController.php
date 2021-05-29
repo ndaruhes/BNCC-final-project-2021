@@ -26,15 +26,15 @@ class PesananController extends Controller
         $idBarang = Str::substr(str_replace(url('/'), '', url()->previous()), 8);
         $request->validate([
             'jumlah_pesanan' => 'required|integer',
-            'alamat' => 'required|string',
-            'kode_pos' => 'required|integer',
+            'alamat' => 'required|string|min:10|max:100',
+            'kode_pos' => 'required|integer|digits:5',
         ]);
 
         $barang = Barang::findOrFail($idBarang);
         $totalHarga = $request->jumlah_pesanan * $barang->harga_barang;
 
         if ($request->jumlah_pesanan > $barang->jumlah_barang) {
-            return redirect()->route('showBarang', $idBarang)->with('status', 'Stok yang tersisa hanya ' . $barang->jumlah_barang);
+            return redirect()->route('showBarang', $idBarang)->with('errorStatus', 'Stok yang tersisa hanya ' . $barang->jumlah_barang);
         }
 
         Pesanan::create([

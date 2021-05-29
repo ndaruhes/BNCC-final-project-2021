@@ -13,6 +13,14 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $data->nama_barang }}</h5>
                         <p class="card-text">Rp. {{ number_format($data->harga_barang) }}</p>
+                        <p class="card-text">
+                            Stok: 
+                            @if($data->jumlah_barang === '0' || $data->jumlah_barang == null)
+                                <span class="text-danger">Habis</span>
+                            @else
+                                {{ $data->jumlah_barang }}
+                            @endif
+                        </p>
                         <a href="{{ route('showBarang', $data->id) }}" class="btn btn-primary text-white w-100">Lihat Selengkapnya <i class="uil uil-eye ms-1"></i></a>
                     </div>
                 </div>

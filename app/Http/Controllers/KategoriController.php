@@ -49,7 +49,7 @@ class KategoriController extends Controller
 
     public function destroy($id)
     {
-        Kategori::findOrFail($id)->destroy();
+        Kategori::findOrFail($id)->delete();
         return redirect()->route('kategori.index')->with('status', 'Kategori berhasil dihapus');
     }
 }

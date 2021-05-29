@@ -5,14 +5,19 @@
     @include('barang.create')
     <div class="d-flex justify-content-center mt-5">
         <div class="col-md-6">
+            <h1 class="fs-3 mb-5"><i class="uil uil-cube me-1"></i> KELOLA BARANG</h1>
             <button type="button" class="btn btn-primary btn-sm mb-3 text-white" data-bs-toggle="modal" data-bs-target="#tambahBarang">
                 <i class="uil uil-plus me-1"></i> Tambah Barang
             </button>
 
+            @if(session('status'))
+                <div class="alert alert-success"><i class="uil uil-check me-1"></i>{{session('status')}}</div>
+            @endif
+
             @if($barang->count() == null)
-            <div class="alert alert-warning" role="alert">
-                Barang masih kosong
-            </div>
+                <div class="alert alert-warning" role="alert">
+                    Barang masih kosong
+                </div>
             @else
                 <table class="table">
                     <thead>
@@ -33,7 +38,13 @@
                             <td><img src="{{ asset('storage/images/barang/'.$data->foto_barang) }}" alt="{{ $data->nama_barang }}" class="w-100"></td>
                             <td>{{ $data->nama_barang }}</td>
                             <td>{{ $data->harga_barang }}</td>
-                            <td>{{ $data->jumlah_barang }}</td>
+                            <td>
+                                @if($data->jumlah_barang === '0' || $data->jumlah_barang == null)
+                                    <span class="text-danger">Habis</span>
+                                @else
+                                    {{ $data->jumlah_barang }}
+                                @endif
+                            </td>
                             <td>{{ $data->kategori->nama_kategori }}</td>
                             <td>
                                 <a href="{{ route('editBarang', $data->id) }}" class="text-primary">

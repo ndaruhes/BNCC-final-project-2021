@@ -115,7 +115,7 @@ class BarangController extends Controller
         if (Storage::exists('public/images/barang/' . $barang->foto_barang)) {
             Storage::delete('public/images/barang/' . $barang->foto_barang);
         }
-        $barang->destroy();
+        $barang->delete();
 
         return redirect()->route('indexBarang')->with('status', 'Barang berhasil dihapus');
     }

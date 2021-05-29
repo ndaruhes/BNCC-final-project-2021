@@ -5,6 +5,10 @@
 
 <div class="form-wrapper col-md-4">
     <h1>Register PT. Mentol</h1>
+    
+    @if(session('errorStatus'))
+        <div class="alert alert-danger"><i class="uil uil-times me-2"></i>{{session('errorStatus')}}</div>
+    @endif
     <form method="POST" action="{{ route('register') }}">
         @csrf
         <div class="form-group">
@@ -28,7 +32,7 @@
 
         <div class="form-group">
             <label for="">No. Telepon</label>
-            <input id="no_telepon" type="text" class="form-control @error('no_telepon') is-invalid @enderror" name="no_telepon" value="{{ old('no_telepon') }}" required autocomplete="no_telepon" autofocus>
+            <input id="no_telepon" type="number" class="form-control @error('no_telepon') is-invalid @enderror" name="no_telepon" value="{{ old('no_telepon') }}" required autocomplete="no_telepon" autofocus>
             @error('no_telepon')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
